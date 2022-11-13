@@ -1,256 +1,104 @@
-<!DOCTYPE HTML>
-<!--
-	Future Imperfect by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Welcome to My Page!</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+---
+layout: default
+---
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="search blog posts..." style="width: 90%;
+    height: 35px;
+    color: #333;
+    background-color: rgba(227,231,236,.2);
+    line-height: 35px;
+    padding:0px 16px;
+    border: 1px solid #c0c0c0;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 17px;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);">
+  <ul id="results-container"></ul>
+</div>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!--script src="https://unpkg.com/simple-jekyll-search/dest/simple-jekyll-search.min.js"></script-->
+<script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
 
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Zhang Yue</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href="contents.html">学习笔记</a></li>
-								<li><a href="#">项目展示</a></li>
-								<li><a href="/resume/张越_个人简历.pdf">关于我</a></li>
-							</ul>
-						</nav>
-						<nav class="main">
-							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>
-					</header>
+<script>
+	window.simpleJekyllSearch = new SimpleJekyllSearch({
+	searchInput: document.getElementById('search-input'),
+	resultsContainer: document.getElementById('results-container'),
+	json: '{{ site.baseurl }}/search.json',
+	searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li>',
+	noResultsText: 'No results found',
+	limit: 10,
+	fuzzy: false,
+	exclude: ['Welcome']
+  })
+</script>
+ 
+{% if site.posts.size == 0 %}
+  <h2>No post found</h2>
+{% endif %}
 
-				<!-- Menu -->
-					<section id="menu">
+<div class="posts">
+  {% for post in paginator.posts %}
+  {% unless post.draft %}
+    <article class="post">
+      <h1>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      </h1>
 
-						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
-							</section>
+      <div clsss="meta">
+        <span class="date">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </span>
 
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<h1>学习笔记</h1>
-										<a href="#"><h3>运筹学</h3></a>
-										<a href="#"><h3>机器学习</h3></a>
-										<a href="#"><h3>随机过程</h3></a>
-									</li>
-									<li>
-										<h1>项目展示</h1>
-										<a href="#"><h3>汽车排序</h3></a>
-										<a href="#"><h3>航班机型分配</h3></a>
-										<a href="#"><h3>两级路径VRP</h3></a>
-									</li>
-								</ul>
-							</section>
+        <ul class="tag">
+          {% for tag in post.tags %}
+          <li>
+            <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
+              {{ tag }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-						<!-- Actions -->
-						<!--
-							<section>
-								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Log In</a></li>
-								</ul>
-							</section>
-						-->
-					</section>
+      <div class="entry">
+        {{ post.excerpt | truncate: 200 }}
+      </div>
 
-				<!-- Main -->
-					<div id="main">
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
+  {% endunless %}
+  {% endfor %}
+</div>
 
-						
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <span class="prev">
+      <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">
+        ← 上一页
+      </a>
+    </span>
+  {% endif %}
+  {% if paginator.next_page %}
+    <span class="next">
+      <a href="{{ site.baseurl}}{{ paginator.next_page_path }}" class="next">
+        下一页 →
+      </a>
+    </span>
+  {% endif %}
+</div>
 
-						<!-- Post -->
-					
-						
-						<!-- Post -->
-						<article class="post">
-							<header>
-								<div class="title">
-									<h2><a href="/notes/01test.html">The Simplex Method-单纯形法</a></h2>
-									<p>单纯形法于1947年提出，至今仍是求解线性规划问题最常用、最有效的算法之一。</p>
-								</div>
-								<div class="meta">
-									<time class="published" datetime="2022-06-10">June 10, 2022</time>
-									<a class="author"><span class="name">Zhang Yue</span><img src="images/mypic.jpg" alt="" /></a>
-								</div>
-							</header>
-							<a href="/notes/01test.html" class="image featured"><img src="images/pic01-1.png" alt=""/></a>
-							<!--<p>test</p>-->
-							<footer>
-								<ul class="actions">
-									<li><a href="/notes/01test.html" class="button large">Continue Reading</a></li>
-								</ul>
-								<ul class="stats">
-									<li><a href="#" class="icon solid fa-heart">0</a></li>
-									<li><a href="#" class="icon solid fa-comment">0</a></li>
-								</ul>
-							</footer>
-						</article>
-
-
-						<!-- Pagination -->
-							<ul class="actions pagination">
-								<li><a href="" class="disabled button large previous">Previous Page</a></li>
-								<li><a href="#" class="button large next">Next Page</a></li>
-							</ul>
-
-					</div>
-
-				<!-- Sidebar -->
-					<section id="sidebar">
-
-						<!-- Intro -->
-							<section id="intro">
-								<a href="#" class="logo"><img src="images/mypic.jpg" alt="" /></a>
-								<header>
-									<h2>张越's 技术博客</h2>
-									<p>Talk is cheap, show me the code</p>
-								</header>
-							</section>
-
-						<!-- Mini Posts -->
-							<section>
-								<div class="mini-posts">
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="/notes/01test.html">Branch and Cut-分支定界法</a></h3>
-												<time class="published" datetime="2022-06-10">June 10, 2022</time>
-												<a href="#" class="author"><img src="images/mypic.jpg" alt="" /></a>
-											</header>
-											<a href="/notes/01test.html" class="image"></a>
-										</article>
-
-
-								</div>
-								<div class="mini-posts">
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="/notes/01test.html">The Simplex Method-单纯形法</a></h3>
-												<time class="published" datetime="2022-06-10">June 10, 2022</time>
-												<a href="#" class="author"><img src="images/mypic.jpg" alt="" /></a>
-											</header>
-											<a href="/notes/01test.html" class="image"></a>
-										</article>
-
-
-								</div>
-							</section>
-							
-
-						<!-- Posts List -->
-						<!--
-							<section>
-								<ul class="posts">
-									<li>
-										<article>
-											<header>
-												<h3><a href="single.html">Lorem ipsum fermentum ut nisl vitae</a></h3>
-												<time class="published" datetime="2015-10-20">October 20, 2015</time>
-											</header>
-											<a href="single.html" class="image"><img src="images/pic08.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="single.html">Convallis maximus nisl mattis nunc id lorem</a></h3>
-												<time class="published" datetime="2015-10-15">October 15, 2015</time>
-											</header>
-											<a href="single.html" class="image"><img src="images/pic09.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="single.html">Euismod amet placerat vivamus porttitor</a></h3>
-												<time class="published" datetime="2015-10-10">October 10, 2015</time>
-											</header>
-											<a href="single.html" class="image"><img src="images/pic10.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="single.html">Magna enim accumsan tortor cursus ultricies</a></h3>
-												<time class="published" datetime="2015-10-08">October 8, 2015</time>
-											</header>
-											<a href="single.html" class="image"><img src="images/pic11.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="single.html">Congue ullam corper lorem ipsum dolor</a></h3>
-												<time class="published" datetime="2015-10-06">October 7, 2015</time>
-											</header>
-											<a href="single.html" class="image"><img src="images/pic12.jpg" alt="" /></a>
-										</article>
-									</li>
-								</ul>
-							</section>
-						-->
-						<!-- About -->
-							<section class="blurb">
-								<h2>About</h2>
-								<p>该博客创建于2022年6月10日，吉安。建立这个博客的初衷，是为了记录自己在运筹优化方面的学习。也希望自己能够在博客的监督下，成为一名合格乃至优秀的运筹优化算法工程师。</p>
-								<!--
-								<ul class="actions">
-									<li><a href="#" class="button">Learn More</a></li>
-								</ul>
-								-->
-							</section>
-
-						<!-- Footer -->
-							<section id="footer">
-								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-									<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-								</ul>
-								<!--
-								<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-								-->
-							</section>
-
-					</section>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>
+<!--不算子网站访客统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<!-- pv的方式，单个用户连续点击n篇文章，记录n次访问量 -->
+<div align="center">
+	<span id="busuanzi_container_site_pv" style="font-family:Consolas;color:Silver;font-size:12px;">
+		View:<span id="busuanzi_value_site_pv" style="font-family:Consolas;color:Silver;font-size:12px;"></span>
+	</span>
+	<!-- uv的方式，单个用户连续点击n篇文章，只记录1次访客数 -->
+	<span id="busuanzi_container_site_uv" style="font-family:Consolas;color:Silver;font-size:12px;">
+		User:<span id="busuanzi_value_site_uv" style="font-family:Consolas;color:Silver;font-size:12px;"></span>
+	</span>
+</div>
