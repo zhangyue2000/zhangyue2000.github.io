@@ -2,19 +2,23 @@
 # This file contains configuration flags to customize your site
 #
 
+#latex
+markdown: kramdown
+#latex
+
 # Name of your site (displayed in the header)
-name: "Zhang Yue's blog"
+name: "Qiyu Wu's blog"
 # Short bio or description (displayed in the header)
-description: "梦想成为一名合格的运筹优化算法工程师"
+description: "这是一个记录与分享的博客网站"
 
 #
 # Flags below are optional
 #
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-# avatar: https://github.com/lemonchann/images/raw/master/gzh/%E6%96%87%E6%9C%AB%E6%8E%A8%E5%B9%BF%E6%96%87%E6%A1%88.png
+avatar:  http://www.wqyai.cn/static/img/R-C (2).jpg
 # 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
-# favicon: <a target="_blank" href="https://icons8.com/icon/107461/%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">使用笔记本电脑</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+favicon:  https://raw.githubusercontent.com/Crosser-XDU/Crosser-XDU.github.io/master/images/favicon.ico
 
 # Tabs in header. There are 'Blog', 'About', 'Archive', 'Tags'
 # and URL Link(e.g. 'Theme' tab below) tabs. If you don't need one, just delete
@@ -39,11 +43,11 @@ footer-links:
   #weibo: frommidworld #请输入你的微博个性域名 https://www.weibo.com/<thispart>
   behance: # https://www.behance.net/<username>
   dribbble:
-  zhihu:
-  email: caesar8310@sjtu.edu.cn
+  zhihu: 
+  email: wuqy@stu.xidian.edu.cn
   facebook:
   flickr:
-  github: zhangyue2000
+  github: Crosser-XDU
   googleplus: # anything in your profile username that comes after plus.google.com/
   instagram:
   linkedin:
@@ -55,7 +59,7 @@ footer-links:
   youtube:
 
 # Text under the icons in footer
-footer-text: Copyright (c) 2019 lemon
+footer-text: Copyright (c) 2019 Crosser
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
@@ -63,17 +67,17 @@ disqus: # fromendworld
 
 # Gitalk
 gitalk:
-  clientID: b220c10a4897fe3d39f0
-  clientSecret: 94da836610da8e25c063ae1a6c3233e4012ee224
-  repo: zhangyue2000.github.io
-  owner: zhangyue2000
+  clientID: 2763dcfcded33606e61d
+  clientSecret: 560b994cc03e69aa1642fe640a3d2645d44c5129
+  repo: blogtalk
+  owner: Crosser-XDU
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-# google_analytics: 
+#google_analytics: 
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: https://zhangyue2000.github.io
+url: https://crosser-xdu.github.io
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
