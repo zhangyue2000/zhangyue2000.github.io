@@ -7,9 +7,9 @@ markdown: kramdown
 #latex
 
 # Name of your site (displayed in the header)
-name: "Qiyu Wu's blog"
+name: "Zhang Yue's blog"
 # Short bio or description (displayed in the header)
-description: "这是一个记录与分享的博客网站"
+description: "记录与分享"
 
 #
 # Flags below are optional
@@ -44,10 +44,10 @@ footer-links:
   behance: # https://www.behance.net/<username>
   dribbble:
   zhihu: 
-  email: wuqy@stu.xidian.edu.cn
+  email: caesar8310@sjtu.edu.cn
   facebook:
   flickr:
-  github: Crosser-XDU
+  github: zhangyue2000
   googleplus: # anything in your profile username that comes after plus.google.com/
   instagram:
   linkedin:
@@ -59,7 +59,7 @@ footer-links:
   youtube:
 
 # Text under the icons in footer
-footer-text: Copyright (c) 2019 Crosser
+footer-text: Copyright (c) 2022 Zhang
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
@@ -67,17 +67,17 @@ disqus: # fromendworld
 
 # Gitalk
 gitalk:
-  clientID: 2763dcfcded33606e61d
-  clientSecret: 560b994cc03e69aa1642fe640a3d2645d44c5129
-  repo: blogtalk
-  owner: Crosser-XDU
+  clientID: b220c10a4897fe3d39f0
+  clientSecret: 94da836610da8e25c063ae1a6c3233e4012ee224
+  repo: zhangyue2000.github.io
+  owner: zhangyue2000
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
 #google_analytics: 
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: https://crosser-xdu.github.io
+url: https://zhangyue2000.github.io
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
