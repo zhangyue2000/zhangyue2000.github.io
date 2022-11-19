@@ -24,13 +24,21 @@ author: Zhang Yue
 **B. 鲁棒优化机制**
 
 以线性规划为例，线性规划的标准形式为：
+
+
 $$
 \min_{x} \{c^Tx: Ax \leq b\}
 $$
+
+
 而在鲁棒优化中，一个不确定的LP问题可以描述为以下形式：
+
+
 $$
 \min_{x} \{c^Tx: Ax \leq b\},(c,A,B)\in \mathcal{U}
 $$
+
+
 其中，$\mathcal{U}$ 为不确定集。
 
 而这个问题的答案，正如鲁棒优化以其最基本的形式所提供的，依赖于对潜在决策环境的三个隐含假设：
@@ -44,27 +52,43 @@ $$
 而对于鲁棒可行解对应的目标函数值，我们采取“**以最坏情况作为导向**”的思想，鲁棒可行解 $x$ 的质量通过计算 $sup\{c^Tx:(c,A,b) \in \mathcal{U}\}$ 来得到。
 
 因此，我们的问题可以转化为：
+
+
 $$
 \min_{x} \left \{ \sup_{(c,A,b)\in \mathcal{U}} c^Tx: Ax\leq b, \forall (c,A,b)\in \mathcal{U} \right \}
 $$
+
+
 也可写作：
+
+
 $$
 \min_{x,t}\left \{ t:c^Tx \leq t, Ax \leq b, \forall (c,A,b) \in \mathcal{U} \right \} \tag{RC}
 $$
+
+
 后一个问题也被称为原始不确定问题的 *Robust Counterpart (RC)*，RC的可行/最优解被称为不确定问题的鲁棒可行/最优解。
 
 **Robust vs. Stochastic Optimization**
 
 在随机规划 (SO) 中，不确定的数值数据往往被假设为随机的。在最简单的情况中，这些随机数据的先验概率分布是已知的。在此，每个不确定的LP问题同样与一个确定性问题相关联，最著名的是**机会约束规划**：
+
+
 $$
 \min_{x,t}\left \{ t:Prob_{(c,A,b)\sim P}\{c^Tx\leq t \space \& \space Ax\leq b \} \geq 1-\epsilon \right \}
 $$
+
+
 在此 $\epsilon \ll 1$ 是一个极小值，$P$ 为 $(c,A,b)$ 的分布函数。
 
 当分布只是部分可知时，假设 $P$ 属于一个概率分布族 $\mathcal{P}$，则上述问题可以由**模糊机会约束规划**代替：
+
+
 $$
 \min_{x,t}\left \{ t:Prob_{(c,A,b)\sim P}\{c^Tx\leq t \space \& \space Ax\leq b \} \geq 1-\epsilon, \forall P \in \mathcal{P} \right \}
 $$
+
+
 可以看出，SO相较于RO得到的解更加不具有保守性。RO总是寻找最坏情况下仍能表现良好的解，而SO的目的在于寻找一个在所有情况中都表现良好的解。但是，SO对不确定数据集提出了严峻的要求，必须已知数据概率分布或概率分布族。而实际问题中，大部分数据都很难呈现严格的分布性质，因此SO往往被迫对实际分布进行过于简化的假设。
 
 并且，机会约束规划并不那么容易被人接受。机会约束规划得到的解，往往在大量的试验次数下能做到表现最优，这是大数定律（Law of Large Numbers）所决定的。而对于单次乃至少数试验下，它们得到的解表现较为一般。
