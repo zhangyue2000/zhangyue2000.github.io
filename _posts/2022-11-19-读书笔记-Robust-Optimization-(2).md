@@ -220,4 +220,38 @@ $$
 \bar{a}_i^Tx=\sum_{j=1}^J\lambda_j[a_i^j]^Tx \leq \sum_{j}\lambda _jb_i^j=\bar{b}_i
 $$
 
+------------------
+
+**1.3 Tractability of Robust Counterparts**
+
+**1.3.1 The strategy**
+
+我们的策略如下所示：
+
+- 首先，我们将问题限制在具有确定目标的不确定LO问题下
+- 其次，我们所需要的是一个具有单一的不确定线性约束的RC的”可解“表示，也就是说，这样一个RC的等价表示是一个显式（且简短的）有效可验证的凸不等式系统
+- 对我们不确定问题中的每一条约束都确定一个这样的表示，集成在一起，我们就能够将该问题的RC重新表示为在有限个显式凸约束的系统下最小化原线性目标的问题，因此是个可解问题
+
+> Def 1.3.1 A set $X^+ \subset R_x^n \times R_u^k$  is said to represent a set $X \subset R_x^n$ , if the projection of $X^+$ onto the space of $x$-variables is exactly $X$, i.e., $x \in X$ if and only if there exists $u \in R_u^k$ such that $(x,u)\in X^+$:
+> $$
+> X =\{x:\exist u:(x,u)\in X^+\}
+> $$
+
+举个例子，$x_1+x_2 \leq 1,x_1-x_2 \leq 1,-x_1+x_2 \leq 1,-x_1-x_2 \leq 1$可以转化为$|x_1|+|x_2|\leq 1$，二者都表示了相同的可行域。而$-u_1 \leq x_1 \leq u_1, -u_2 \leq x_2 \leq u_2, u_1+u_2 \leq 1$同样可以表示该可行域。而第二种表述和第三种表述位于不同维度的空间中，因此不能看作相等。
+
+假定我们给定优化问题：
+
+
+$$
+\min_x \left \{ f(x) \space s.t. \space x \space satisfies \space \mathcal{S}_i, i = 1,...,m\right \} \tag{P}
+$$
+
+
+$S_i$ 为变量 $x$ 的约束系统，将其扩展到 $S_i^+$ 上
+
+
+$$
+\min_{x,v^1,...,v^m} \left \{ f(x) \space s.t. \space (x,v^i) \space satisfies \space \mathcal{S}_i^+, i = 1,...,m\right \} \tag{$P^+$}
+$$
+
 
