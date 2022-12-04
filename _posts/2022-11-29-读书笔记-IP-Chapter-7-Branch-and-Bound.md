@@ -81,7 +81,7 @@ $$
 $$
 
 
-此处$f_j = x_j^{\star}-\left \lfloor x_j^{\star} \right \rfloor$，因此一个变量的分数值为$f_j = \frac{1}{2}$时为最优。
+此处$f_j = x_j^{\star}-\left \lfloor x_j^{\star} \right \rfloor$，因此一个变量的分数值为$f_j = \frac{1}{2}$时是最优的。
 
 **Choosing a node**
 
