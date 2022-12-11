@@ -31,7 +31,7 @@ author: Zhang Yue
 
 **1 The challenge of dynamic programming**
 
-在1957年，Richard Bellman发表了他的开创性著作，提出了解决序列随机优化问题的一个简单而优雅的模型和算法策略。这个问题可以表示如下：寻找一个policy $\pi :\mathcal{S} \rightarrow \mathcal{A}$，将离散状态 $s \in \mathcal{S}$ 映射到一个动作 $a\in \mathcal{A}$，产生贡献 $C(s,a)$。接着，整个系统以概率 $p(s'|s,a)$ 转化为新的状态 $s'$ 。如果 $V(s)$ 为状态 $s$ 下的价值，则
+在1957年，Richard Bellman发表了他的开创性著作，提出了解决序列随机优化问题的一个简单而优雅的模型和算法策略。这个问题可以表示如下：寻找一个policy $\pi :\mathcal{S} \rightarrow \mathcal{A}$，将离散状态 $s \in \mathcal{S}$ 映射到一个动作 $a\in \mathcal{A}$，产生贡献 $C(s,a)$。接着，整个系统以概率 $p(s'\mid s,a)$ 转化为新的状态 $s'$ 。如果 $V(s)$ 为状态 $s$ 下的价值，则
 
 
 
@@ -48,7 +48,7 @@ $$
 
 
 $$
-V_t(S_t) = \max_{a\in \mathcal{A}} \left ( C(S_t,a) + \gamma \sum_{s' \in S}p(s'|S_t,a)V_{t+1}(s')\right ) \tag 2
+V_t(S_t) = \max_{a\in \mathcal{A}} \left ( C(S_t,a) + \gamma \sum_{s' \in S}p(s' \mid S_t,a)V_{t+1}(s')\right ) \tag 2
 $$
 
 
@@ -62,7 +62,7 @@ $$
 
 
 $$
-V^n(s) = \max_{a\in \mathcal{A}} \left ( C(s,a) + \gamma \sum_{s' \in S}p(s'|s,a)V^{n-1}(s')\right ) \tag{3}
+V^n(s) = \max_{a\in \mathcal{A}} \left ( C(s,a) + \gamma \sum_{s' \in S}p(s'\mid s,a)V^{n-1}(s')\right ) \tag{3}
 $$
 
 
@@ -102,7 +102,7 @@ $$
 
 
 $$
-a(s)=\arg \max_{a}\left(C(s,a)+\gamma \sum_{s'\in \mathcal{S}}p(s'|s,a)v^{\pi}(s')\right) \tag 6
+a(s)=\arg \max_{a}\left(C(s,a)+\gamma \sum_{s'\in \mathcal{S}}p(s' \mid s,a)v^{\pi}(s')\right) \tag 6
 $$
 
 
@@ -220,7 +220,7 @@ $$
 
 
 $$
-A^{\pi}(S_t|\theta)=\left\{\begin{matrix}
+A^{\pi}(S_t \mid \theta)=\left\{\begin{matrix}
 0  & if \space S_t \geq q \\
 Q-S_t  & if \space S_t \lt q
 \end{matrix}\right.
@@ -255,7 +255,7 @@ $$
 
 
 $$
-V(S_t) = \max_{a\in \mathcal{A}}\left ( C(S_t,a) + \gamma E  \{ V(S_{t+1})|S_t \} \right )
+V(S_t) = \max_{a\in \mathcal{A}}\left ( C(S_t,a) + \gamma E  \{ V(S_{t+1}) \mid S_t \} \right )
 $$
 
 
@@ -269,7 +269,7 @@ $$
 
 
 $$
-\bar{V}(S_t|\theta)=\sum_{f\in \mathcal{F}}\theta_f\phi_f(S_t)
+\bar{V}(S_t \mid \theta)=\sum_{f\in \mathcal{F}}\theta_f\phi_f(S_t)
 $$
 
 
@@ -292,7 +292,7 @@ $$
 
 
 $$
-\hat{v}_t^n=\max_a \left( C(S_t^n,a) + \gamma\sum_{s'}p(s'|S^n,a)\bar{V}_{t+1}^{n-1}(S_{t+1}) \right )
+\hat{v}_t^n=\max_a \left( C(S_t^n,a) + \gamma\sum_{s'}p(s' \mid S^n,a)\bar{V}_{t+1}^{n-1}(S_{t+1}) \right )
 $$
 
 
