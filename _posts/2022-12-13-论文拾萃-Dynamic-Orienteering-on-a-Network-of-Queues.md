@@ -163,7 +163,7 @@ $$
 E[V^{\pi(v,s_{k+1})}(s_{k+1}) \mid s_k,a]=\sum_{s_{k+1} \in S(s_k,a)}P(s_{k+1} \mid s_k,a) \times V^{\pi(v,s_{k+1})}(s_{k+1})
 $$
 
-此处$V^{\pi(v,s_{k+1})}(s_{k+1})$为一个a-priori-route策略$\pi(v)$从$s_{k+1}$出发得到的期望值。当进程在第$k$个决策时间点处于状态$s_k$时，它选择动作$a\in A(s_k)$使得$R_k(s_k,a)+E[V^{\pi(v,s_{k+1})}(s_{k+1}) \mid s_k,a]$最大化。对于状态$s_k$和每个可行的动作$a \in A(s_k)$，单步rollout执行启发式搜索$ \left | S(s_k,a)\right |$次。
+此处$V^{\pi(v,s_{k+1})}(s_{k+1})$为一个a-priori-route策略$\pi(v)$从$s_{k+1}$出发得到的期望值。当进程在第$k$个决策时间点处于状态$s_k$时，它选择动作$a\in A(s_k)$使得$R_k(s_k,a)+E[V^{\pi(v,s_{k+1})}(s_{k+1}) \mid s_k,a]$最大化。对于状态$s_k$和每个可行的动作$a \in A(s_k)$，单步rollout执行启发式搜索$  \mid S(s_k,a) \mid$次。
 
 而pre-decision rollout完全不进行前瞻，而是直接选择在状态$s_k$时的动作。
 
