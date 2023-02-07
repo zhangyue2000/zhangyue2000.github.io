@@ -176,7 +176,7 @@ $$
 
 为了说明，考虑$s_k=(t,d,q,H,U,W,(\breve{t},\breve{q}))$和$V(s_k)=\max_{a \in A(s_k)}\{R_k(s_k,a) + E[V(s_{k+1}\mid s_k,a)]\}=\max\{V_{stay}(s_k),V_{go}(s_k)\}$，此处$V_{stay}(s_k)=R_k(s_k,d)+E[V(s_{k+1}) \mid s_k,d]$，$V_{go}(s_k)=\max_{a \in \{U \cup W \setminus \{d\}: t+ c_{da} \lt l_a\}} E[V(s_{k+1}) \mid s_k,a]$。单步rollout通过前瞻一步执行启发式搜索从$\mid U \cup W \mid \times (L+1)$个可能的状态中寻找$V_{go}(s_j)$的估计值，从$3 \delta$个可能状态中寻找$V_{stay}(s_k)$的估计值。
 
-为了单步rollout的计算负担、改善pre-decision rollout的质量，我们提出compound rollout算法。compound rollout通过两阶段过程选择当前时期的动作。在第一阶段，我们比较$\tilde{V}_{stay}(s_k)$和$\tilde{V}_{go}(s_k)$，两者均为$V_{stay}(s_k)$和$V_{go}(s_k)$的估计值，来决定旅行者是否需要离开。如果$\tilde{V}_{stay}(s_k) \lt \tilde{V}_{go}(s_k)$，则compoud rollout利用第二阶段来确定下一个参观的地点。否则，旅行者停在当前地点等待直到下一个决策时间点。
+为了减少单步rollout的计算负担、改善pre-decision rollout的质量，我们提出compound rollout算法。compound rollout通过两阶段过程选择当前时期的动作。在第一阶段，我们比较$\tilde{V}_{stay}(s_k)$和$\tilde{V}_{go}(s_k)$，两者均为$V_{stay}(s_k)$和$V_{go}(s_k)$的估计值，来决定旅行者是否需要离开。如果$\tilde{V}_{stay}(s_k) \lt \tilde{V}_{go}(s_k)$，则compoud rollout利用第二阶段来确定下一个参观的地点。否则，旅行者停在当前地点等待直到下一个决策时间点。
 
 <img src="https://s2.loli.net/2022/12/16/TLwVF2h3jPIbial.png" alt="image-20221216145303016" align='mid' />
 
