@@ -66,7 +66,7 @@ $$
 
 **General Cutting Planes**
 
-给定整数规划$\max \{c^Tx : Ax=b,x\in Z_{+}^n\}$和LP最优解$x_N^{\star}=0,x_B^\star=A_B^{-1}b-A_B^{-1}A_Nx_N^\star$，此处$B \subset \{1,...,n\},|B|=m,N=\{1,...,n\}\backslash B$。假设$i \in B$且$x_i^\star \notin Z$。我们可以利用以下缩写：$\bar{a}_j=A_{i\cdot}^{-1} A_{\cdot j}$，$\bar{b}=A_{i \cdot}^{-1}b$，$f_j=f(\bar{a}_j)$，$f_0=f(\bar{b})$，此处$f(\alpha)=\alpha - \lfloor  \alpha \rfloor$。
+给定整数规划$\max \{c^Tx : Ax=b,x\in Z_{+}^n\}$和LP最优解$x_N^{\star}=0,x_B^\star=A_B^{-1}b-A_B^{-1}A_Nx_N^\star$，此处$B \subset \{1,...,n\},\mid B \mid =m,N=\{1,...,n\}\backslash B$。假设$i \in B$且$x_i^\star \notin Z$。我们可以利用以下缩写：$\bar{a}_j=A_{i\cdot}^{-1} A_{\cdot j}$，$\bar{b}=A_{i \cdot}^{-1}b$，$f_j=f(\bar{a}_j)$，$f_0=f(\bar{b})$，此处$f(\alpha)=\alpha - \lfloor  \alpha \rfloor$。
 
 设$A_{i\cdot}$表示矩阵$A$的第$i$行，$A_{\cdot j}$表示矩阵A的第$j$列，因此有
 
@@ -279,7 +279,7 @@ Benders feasibility cuts的具体形式为：$(\alpha_p^i)^T(b-By)\leq0,\forall 
 
 **Benders Decomposition 步骤**
 
-1. 将原问题拆分为一个主问题MP和一个子问题SP：
+1.将原问题拆分为一个主问题MP和一个子问题SP：
 
 
 $$
@@ -292,8 +292,7 @@ s.t. \space &y \in Y \subset R^n \\
 \end{align}
 $$
 
-
-2. 求解主问题，得到$y$的值$\bar{y}$并构建子问题：
+2.求解主问题，得到$y$的值$\bar{y}$并构建子问题：
 
 - Dual SP $\rightarrow$ 直接得到对偶变量，但需要写出SP的对偶
 
@@ -319,12 +318,13 @@ s.t. &\space Ax=b-B\bar{y} \\
 $$
 
 
-3. 求解子问题，获得对偶变量，构建Benders optimality cut 和 Benders feasibility cut。
+3.求解子问题，获得对偶变量，构建Benders optimality cut 和 Benders feasibility cut。
 
 - 求解Dual SP，若存在有界可行解，构建Benders optimality cut；若无解，构建Benders feasibility cut
 - 求解SP，利用求解器得到对偶变量或者极射线
 
-4. 将步骤3构建好的cut添加到MP中，求解MP，并更新全局的上界UB和全局的下界LB。如果UB=LB，则算法停止，获得最优解。否则重复2-4步
+4.将步骤3构建好的cut添加到MP中，求解MP，并更新全局的上界UB和全局的下界LB。如果UB=LB，则算法停止，获得最优解。否则重复2-4步
+
 
 
 $$
@@ -333,6 +333,9 @@ UB &= fy + Q(y) \\
 LB &= fy + q
 \end{align}
 $$
+
+
+
 $fy+Q(y)$是给定了$y = \bar{y}$后求解SP得到$x$的值$\bar{x}$，因此$(\bar{x},\bar{y})$是原问题MIP的一个可行解，min问题的任意一个可行解一定是原问题的UB。
 
 $fy+q$是忽略了$x$的影响，只是添加了一部分cuts，而没有把所有的cut都加回去，因此是原问题的一个松弛版本，因此可以为原问题提供一个下界
