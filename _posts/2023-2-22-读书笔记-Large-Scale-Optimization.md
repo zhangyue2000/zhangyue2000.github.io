@@ -66,9 +66,9 @@ $$
 
 **General Cutting Planes**
 
-给定整数规划$\max \{c^Tx : Ax=b,x\in Z_{+}^n\}$和LP最优解$x_N^{\star}=0,x_B^\star=A_B^{-1}b-A_B^{-1}A_Nx_N^\star$，此处$B \subset \{1,...,n\},\mid B \mid =m,N=\{1,...,n\}\backslash B$。假设$i \in B$且$x_i^\star \notin Z$。我们可以利用以下缩写：$\bar{a}_j=A_{i\cdot}^{-1} A_{\cdot j}$，$\bar{b}=A_{i \cdot}^{-1}b$，$f_j=f(\bar{a}_j)$，$f_0=f(\bar{b})$，此处$f(\alpha)=\alpha - \lfloor  \alpha \rfloor$。
+给定整数规划$\max \{c^Tx : Ax=b,x\in Z_{+}^n\}$和LP最优解$x_N^{\star}=0,x_B^\star=A_B^{-1}b-A_B^{-1}A_Nx_N^\star$，此处$B \subset \{1,...,n\},\mid B \mid =m,N=\{1,...,n\}\backslash B$。假设$i \in B$且$x_i^\star \notin Z$。我们可以利用以下缩写：$\bar{a}_j=A_{i.}^{-1} A_{. j}$，$\bar{b}=A_{i .}^{-1}b$，$f_j=f(\bar{a}_j)$，$f_0=f(\bar{b})$，此处$f(\alpha)=\alpha - \lfloor  \alpha \rfloor$。
 
-设$A_{i\cdot}$表示矩阵$A$的第$i$行，$A_{\cdot j}$表示矩阵A的第$j$列，因此有
+设$A_{i.}$表示矩阵$A$的第$i$行，$A_{. j}$表示矩阵A的第$j$列，因此有
 
 
 $$
@@ -171,14 +171,98 @@ SP: \ & min \  -\bar{c}_j \\
 \end{align}
 $$
 
-
 我们不再去计算每一个$\bar{c}_j$，而是直接求解上面这个问题得到。
+
+因此，列生成算法的思路大致如下：
+
+1.首先我们将原问题（master problem）restrict到一个规模更小（变量数比原问题少，列数更少）的restricted master problem上，然后运用单纯形法对该restricted master problem进行求解，但此时所求到的最优解只是在restricted master problem上的，而非master problem的最优解。
+
+2.此时，我们需要通过一个subproblem去check那些未被考虑的变量中是否有使得reduced cost小于0的，如果有，就把这个变量的相关系数列加入到restricted master problem的系数矩阵中，回到第一步。
+
+经过反复的迭代，直到subproblem中的reduced cost rate大于等于0，那么master problem就求到了最优解。
+
+原问题如下：
+
+
+$$
+\begin{align}
+MP: \quad min \ & \sum_{i=1}^nc_ix_i \\
+s.t. \ & \sum_{j=1}^na_{ij}x_j=b_i, \ i=1,...,m
+\end{align}
+$$
+
+
+restricted master problem如下：
+
+
+$$
+\begin{align}
+RMP: \quad min \ & \sum_{i=1}^k c_ix_i \\ 
+s.t. \ & \sum_{j=1}^k a_{ij}x_j =b_i, \ i=1,...,m
+\end{align}
+$$
+
+
+相当于在restricted master problem中将$y_{k+1},...,y_m$强制限制为非基变量。
+
+在求解完上述的RMP问题后，我们需要检查$y_{k+1},...,y_m$中是否有可以进基的列，而这需要通过非基变量的检验数$\sigma_j = c_j -c_BB^{-1}a_j$来判断，在其中找到检验数最小且为负的变量，将变量对应的那一列添加到RMP中。而检验数中的$c_BB^{-1}$有两重含义：
+
+- 通过求解RMP问题得到的影子价格（shadow price）
+- 通过求解RMP对偶问题得到的对偶变量（dual variable）
+
+我们往往采用通过单纯形法求RMP对偶问题的方式来计算$c_BB^{-1}$，因为在该问题中的变量数更少。得到$c_BB^{-1}$后我们求解下述子问题来得到需要添加进RMP的列（$a_j$）。
+
+
+$$
+\begin{align}
+min \ & (c_j-c_BB^{-1}a_j) \\
+s.t. \ & the \ constraints \ of  \ column \ a_j
+\end{align}
+$$
+
 
 ------------------------
 
 **Branch and price**
 
-（待更新）
+分支定价算法（Branch and price）是将分支定界与列生成结合起来的一种方法。其中，列生成算法用来求解节点的下界，即节点松弛模型的最优解。列生成算法因其求解方法的本质会大大减少计算量，求解的并非节点松弛模型本身，而是受限制的松弛模型，即减少了决策变量规模。流程图如下。
+
+<a href="https://smms.app/image/CVzOW1XjEQbqIU6" target="_blank" align='mid'><img src="https://s2.loli.net/2023/02/28/CVzOW1XjEQbqIU6.png" ></a>
+
+
+
+
+
+---------------------------------------
+
+**Dantzig-Wolfe decomposition**
+
+考虑如下的模型：
+
+
+$$
+\begin{align}
+min \ & c^Tx \\
+s.t. \ & Ax=b \\
+& x \in S
+\end{align}
+$$
+
+
+此处$S$为一个多面体集，代表着特殊构造的约束。假定$S$非空有界，$x_1,x_2,...,x_t$为$S$的极点，那么$\forall x\in S:x=\sum_{j=1}^t\lambda_jx_j,\  \sum_{j=1}^t \lambda_j = 1, \ \lambda_j \geq 0(j=1,...,t)$。原模型可以表示为：
+
+
+$$
+\begin{align}
+MP: \quad min \ & \sum_{j=1}^t (c^Tx_j)\lambda_j \\
+s.t. \ & \sum_{j=1}^t (Ax_j)\lambda_j = b \\
+& \sum_{j=1}^t \lambda_j = 1 \\
+& \lambda_j \geq 0(j=1,...,t)
+\end{align}
+$$
+
+
+要直接枚举所有极点来解决这个问题是十分困难的。对于$MP$，假定一个基为$B$，$\lambda=[\lambda_B,\lambda_N]^T$
 
 -----------------------------------------------------
 
