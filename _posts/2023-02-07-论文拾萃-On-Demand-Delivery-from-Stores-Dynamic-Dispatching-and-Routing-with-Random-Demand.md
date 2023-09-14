@@ -2,7 +2,7 @@
 layout: post
 title: "<论文拾萃> On-Demand Delivery from Stores: Dynamic Dispatching and Routing with Random Demand"
 date:   2023-02-10
-tags: [论文拾萃,ADP,Benders Decomposition,Column generation]
+tags: [论文拾萃,ADP,BD,CG]
 comments: true
 author: Zhang Yue
 ---
