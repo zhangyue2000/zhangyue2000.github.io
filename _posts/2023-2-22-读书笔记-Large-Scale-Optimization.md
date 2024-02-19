@@ -12,6 +12,7 @@ author: Zhang Yue
 
 
 ---------------
+[TOC]
 
 **1. Introduction**
 
@@ -41,6 +42,14 @@ $$
 - Benders decomposition
 
 其中，branch and bound、branch and cut是非常通用的求解框架，适用于所有的MIP问题。而Lagrangian relaxation不能保证得到最优解，但可以得到比线性松弛更紧的界限，因此常常被用来加速branch and bound 或者branch and cut。column generation和branch and price这两个框架的通用性就弱很多，column generation不能保证获得全局最优解，而将branch and bound的框架嵌到column generation中，就构成了Branch and price的框架。
+
+以上精确算法中：
+- **branch and bound** 是一种分而治之的思想，本质上是一种隐枚举(branching)。但是由于加入了prune（剪枝）和bounding（定界）的步骤，使得该框架在实际求解中要比真正的纯枚举要高效得多。
+- **branch and cut** 是目前最流行的求解MIP的求解器的通用算法框架。由于其在branch and bound的基础上，加入了cutting plane的步骤，用于割去当前节点的最优小数解，从而逼近该节点的凸包，从而显著地加速了求解过程。
+- **column generation** 和 **branch and price** 是基于模型重构而来的算法。通常是将原来的MIP分解成一个主问题MP和若干个子问题SP，然后迭代求解。当然，子问题又叫定价子问题。由于分解之后，各个部分的求解相对容易，以及主问题一般是更为紧凑的模型，因此会提供更好的界限，从而加速收敛。
+- **Lagrangian relaxation** 是一种松弛的思想。通过结合对偶理论，得到比单纯的线性松弛更好的界限。
+- **Dantzig-Wolfe decomposition**和**Benders Decomposition**是根据模型的特殊结构，将模型分解为更容易求解的小问题，通过小问题之间的迭代求解和交互，最终达到精确求解模型的目的的精确算法。但是二者的分解思路并不相同。Dantzig-Wolfe decomposition是基于一个表示定理得来的分解方法，该方法需要MIP的约束矩阵符合块角状的特征，通用性有限，使用之前需要考察模型是否符合该结构。而Benders decomposition实际上是较为通用的分解框架。其主要思想是，将较复杂的模型分解成2部分。
+  
 
 -------------
 
