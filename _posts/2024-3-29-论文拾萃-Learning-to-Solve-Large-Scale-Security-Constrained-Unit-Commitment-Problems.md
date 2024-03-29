@@ -72,7 +72,7 @@ $$
 我们假定定制的MIP求解器收到的提示向量为
 
 $$
-h_{l,c,t} \in \{{\rm ENFORCE, RELAX}\}, \forall l \in L, c \in L \cup \{0\}, t \in T
+h_{l,c,t} \in \{ ENFORCE, RELAX\}, \forall l \in L, c \in L \cup \{0\}, t \in T
 $$
 
 提示向量中给出了在应急场景$c$，时段$t$中传输线$l$的热限制是否可能在最优解中仍然有效（binding）。
